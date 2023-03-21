@@ -1,0 +1,92 @@
+﻿@model CalloutViewModel
+@using ADL.Web.Models
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+@using (Html.BeginForm("Insert", "Home", "", FormMethod.Post)) {
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head">Create Callout Request</div>
+    <div class="panel-body">
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+       
+        <div class="top-buffer"></div>
+        <fieldset>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.LabelFor(modelItem => modelItem.FirstName)
+                    @Html.TextBoxFor(modelItem => modelItem.FirstName, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(modelItem => modelItem.FirstName, "", new {@class = "text-danger"})
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(modelItem => modelItem.LastName)
+                    @Html.TextBoxFor(modelItem => modelItem.LastName, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(modelItem => modelItem.LastName, "", new {@class = "text-danger"})
+                </div>
+            </div>
+       
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.LabelFor(modelItem => modelItem.EmailAddress)
+                    @Html.TextBoxFor(modelItem => modelItem.EmailAddress, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(modelItem => modelItem.EmailAddress, "", new {@class = "text-danger"})
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(modelItem => modelItem.ContactNumber)
+                    @Html.TextBoxFor(modelItem => modelItem.ContactNumber, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(modelItem => modelItem.ContactNumber, "", new {@class = "text-danger"})
+                </div>
+            </div>
+        </fieldset>
+
+        
+        <fieldset>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(modelItem => modelItem.VehicleReg)
+                    @Html.TextBoxFor(modelItem => modelItem.VehicleReg, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(modelItem => modelItem.VehicleReg, "", new {@class = "text-danger"})
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(modelItem => modelItem.Address)
+                    @Html.TextAreaFor(modelItem => modelItem.Address, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(modelItem => modelItem.Address, "", new {@class = "text-danger"})
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(modelItem => modelItem.Categories)
+                    @Html.DropDownListFor(modelItem => modelItem.Category, Model.Categories ,"Choose Category", new {@class = "form-control"})
+                    @Html.ValidationMessageFor(modelItem => modelItem.Category, "", new {@class = "text-danger"})
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.LabelFor(modelItem => modelItem.DateBooked)
+                    @Html.TextBoxFor(modelItem => modelItem.DateBooked, new {@class = "form-control", @type = "date"})
+                    @Html.ValidationMessageFor(modelItem => modelItem.DateBooked, "", new {@class = "text-danger"})
+                </div>
+                <div class="col-md-6">
+                    <div id="timebox"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(modelItem => modelItem.Notes)
+                    @Html.TextAreaFor(modelItem => modelItem.Notes, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(modelItem => modelItem.Notes, "", new {@class = "text-danger"})
+                </div>
+            </div>
+            
+       
+        </fieldset>
+        <input type="submit" value="Book Appointment" />
+                    
+    </div>
+</div>
+
+}
