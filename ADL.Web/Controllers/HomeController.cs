@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 using ADL.Repositories.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace ADL.Web.Controllers
 {
@@ -36,10 +37,12 @@ namespace ADL.Web.Controllers
             return View(viewModel);
         }
         [HttpGet]
-        public JsonResult GetSchedule(string day)
+        public JsonResult GetSchedule(string day, string date)
         {
             var timings = db.Schedule.Where(s => s.DayName == day).ToList();
-            return Json(new { success = true, data = timings });
+            var dateCheck = DateTime.Parse(date).Date;
+            var bookings = db.Callout.Where(c => c.DateBookedStart.Date == dateCheck).ToList();
+            return Json(new { success = true, data = timings, existingBookings = bookings});
         }
         [HttpPost]
         public IActionResult Insert(CalloutViewModel calloutViewModel)
@@ -72,7 +75,7 @@ namespace ADL.Web.Controllers
                 };
 
                 calloutService.InsertCallout(callout);
-
+                viewModel.Success = true;
                 
 
                 return View("Index", viewModel);
@@ -80,6 +83,7 @@ namespace ADL.Web.Controllers
             }
             else
             {
+                viewModel.Success = false;
                 return View("Index", viewModel);
             }
             

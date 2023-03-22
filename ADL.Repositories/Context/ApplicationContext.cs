@@ -19,5 +19,6 @@ namespace ADL.Repositories.Context
 
         }
         public DbSet<Schedule> Schedule { get; set; }
+        public DbSet<Callout> Callout { get; set; }
     }
 }

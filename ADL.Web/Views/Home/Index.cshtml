@@ -7,13 +7,19 @@
 @using (Html.BeginForm("Insert", "Home", "", FormMethod.Post)) {
 
 <div class="top-buffer"></div>
-<div class="panel panel-primary">
-    <div class="panel-heading panel-head">Create Callout Request</div>
-    <div class="panel-body">
-        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    @if(Model.Success == true)
+    {
+        <div class="alert alert-success">Your booking was created successfully.</div>
+    }
+    
+<div class="card">
+    <div class="card-header panel-head">Engineer Callout Request Form</div>
+    <div class="card-body">
+        @Html.ValidationSummary(false, "", new {@class="alert-danger"})
        
         <div class="top-buffer"></div>
         <fieldset>
+            <legend>Contact Information</legend>
             <div class="row">
                 <div class="col-md-6">
                     @Html.LabelFor(modelItem => modelItem.FirstName)
@@ -43,11 +49,18 @@
 
         
         <fieldset>
+            <legend>Service Information</legend>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     @Html.LabelFor(modelItem => modelItem.VehicleReg)
                     @Html.TextBoxFor(modelItem => modelItem.VehicleReg, new {@class = "form-control"})
                     @Html.ValidationMessageFor(modelItem => modelItem.VehicleReg, "", new {@class = "text-danger"})
+                </div>
+                <div class="col-md-6">
+                        @Html.LabelFor(modelItem => modelItem.Categories) @Html.DropDownListFor(modelItem => modelItem.Category, Model.Categories ,"Choose Category", new {@class = "form-control"})
+                        
+                    @Html.ValidationMessageFor(modelItem => modelItem.Category, "", new {@class = "text-danger"})
+                    <div id="tooltip"></div>
                 </div>
             </div>
             <div class="row">
@@ -55,13 +68,6 @@
                     @Html.LabelFor(modelItem => modelItem.Address)
                     @Html.TextAreaFor(modelItem => modelItem.Address, new {@class = "form-control"})
                     @Html.ValidationMessageFor(modelItem => modelItem.Address, "", new {@class = "text-danger"})
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.LabelFor(modelItem => modelItem.Categories)
-                    @Html.DropDownListFor(modelItem => modelItem.Category, Model.Categories ,"Choose Category", new {@class = "form-control"})
-                    @Html.ValidationMessageFor(modelItem => modelItem.Category, "", new {@class = "text-danger"})
                 </div>
             </div>
             <div class="row">
@@ -84,7 +90,8 @@
             
        
         </fieldset>
-        <input type="submit" value="Book Appointment" />
+        
+        <input type="submit" value="Book Appointment" class="btn btn-dark"/>
                     
     </div>
 </div>

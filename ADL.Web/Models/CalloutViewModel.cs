@@ -45,5 +45,6 @@ namespace ADL.Web.Models
         [StringLength(500,
         ErrorMessage = "Comments has a maximum of 500 characters.")]
         public string? Notes { get; set; }
+        public bool? Success { get; set; }
     }
 }
