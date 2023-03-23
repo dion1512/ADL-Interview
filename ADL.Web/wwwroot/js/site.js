@@ -9,7 +9,7 @@ $(document).ready(function () {
 });
 function handleDatePicker() {
     // Block weekends
-    $("#DateBooked").on('input', function (e) {
+    $("#DateBooked").on('change', function (e) {
         var date = new Date(this.value);
         var day = date.getUTCDay();
         var today = new Date();
@@ -24,6 +24,7 @@ function handleDatePicker() {
             alert('You must book at least 2 working days in advance');
         }
         else {
+            $('#timebox').empty();
             var dayName = date.toLocaleDateString("en-GB", { weekday: 'long' });
             $.ajax({
                 type: "GET",
