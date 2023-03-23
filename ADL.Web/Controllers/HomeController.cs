@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 using ADL.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using ADL.Web.Utils;
 
 namespace ADL.Web.Controllers
 {
@@ -29,7 +31,7 @@ namespace ADL.Web.Controllers
 
         public IActionResult Index()
         {
-             CalloutViewModel viewModel = new CalloutViewModel
+            CalloutViewModel viewModel = new CalloutViewModel
             {
                 Categories = categoryService.GetCategories().Select(c => new SelectListItem() { Text = c.CategoryName.ToString(), Value = c.Id.ToString() })
             };
@@ -73,8 +75,13 @@ namespace ADL.Web.Controllers
                     DateBookedEnd = startDate.AddHours(2)
 
                 };
+                
+                
 
                 calloutService.InsertCallout(callout);
+               
+                viewModel.JsonFile = Utils.Utils.createJSONFile(callout);
+                viewModel.XmlFile = Utils.Utils.createXMLFile(callout);
                 viewModel.Success = true;
                 
 

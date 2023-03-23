@@ -9,7 +9,9 @@
 <div class="top-buffer"></div>
     @if(Model.Success == true)
     {
-        <div class="alert alert-success">Your booking was created successfully.</div>
+        <div class="alert alert-success">Your booking was created successfully.<br />
+            <a href="~/Downloads/JSON/@Model.JsonFile">Download JSON</a><br />
+            <a href="~/Downloads/XML/@Model.XmlFile">Download XML</a></div>
     }
     
 <div class="card">
