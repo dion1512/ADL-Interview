@@ -9,7 +9,7 @@ using System.Diagnostics;
 using ADL.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
-using ADL.Web.Utils;
+using ADL.Web.AppUtils;
 
 namespace ADL.Web.Controllers
 {
@@ -19,14 +19,16 @@ namespace ADL.Web.Controllers
         
         private readonly ICalloutService calloutService;
         private readonly ICategoryService categoryService;
+        private readonly IEmailService emailService;
         private readonly ApplicationContext db;
 
-        public HomeController(ILogger<HomeController> logger, ICalloutService calloutService, ICategoryService categoryService, ApplicationContext db)
+        public HomeController(ILogger<HomeController> logger, ICalloutService calloutService, ICategoryService categoryService, ApplicationContext db, IEmailService emailService)
         {
             _logger = logger;
             this.calloutService = calloutService;
             this.categoryService = categoryService;
             this.db = db;
+            this.emailService = emailService;
         }
 
         public IActionResult Index()
@@ -72,16 +74,21 @@ namespace ADL.Web.Controllers
                     CategoryID = calloutViewModel.Category,
                     Notes = calloutViewModel.Notes,
                     DateBookedStart = startDate,
-                    DateBookedEnd = startDate.AddHours(2)
-
+                    DateBookedEnd = startDate.AddHours(2),
                 };
                 
                 
 
                 calloutService.InsertCallout(callout);
                
-                viewModel.JsonFile = Utils.Utils.createJSONFile(callout);
-                viewModel.XmlFile = Utils.Utils.createXMLFile(callout);
+                viewModel.JsonFile = Utils.createJSONFile(callout);
+                viewModel.XmlFile = Utils.createXMLFile(callout);
+
+                var calloutData = db.Callout.Where(c => c.Id == callout.Id).FirstOrDefault();
+                string emailBody = $"First Name: {calloutData.FirstName}<br />Last Name: {calloutData.LastName}<br />Email: {calloutData.EmailAddress}<br >Phone: {calloutData.ContactNumber}<br />Address: {calloutData.Address}<br />" +
+                    $"Vehicle Reg: {calloutData.VehicleReg}<br />Category: {calloutData.Category.CategoryName}<br />Date Booked: {calloutData.DateBookedStart} - {calloutData.DateBookedEnd}<br /><br />Notes: {calloutData.Notes}";
+                var message = new Message(new string[] { "adl@test.com" }, "New Engineer Callout", emailBody);
+                //emailService.SendEmail(message);
                 viewModel.Success = true;
                 
 

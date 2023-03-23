@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace ADL.Data.Entities
 {
@@ -29,6 +30,7 @@ namespace ADL.Data.Entities
         public string VehicleReg { get; set; }
         [ForeignKey("Category")]
         public int CategoryID { get; set; }
+        [XmlIgnore]
         public virtual Category Category { get; set; }
         public string? Notes { get; set; }
     }

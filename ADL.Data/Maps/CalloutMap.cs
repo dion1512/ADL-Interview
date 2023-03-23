@@ -22,7 +22,7 @@ namespace ADL.Data.Maps
             entityBuilder.Property(t => t.DateBookedEnd).IsRequired();
             entityBuilder.Property(t => t.VehicleReg).IsRequired().HasMaxLength(7);
             entityBuilder.Property(t => t.Notes).HasMaxLength(500);
-            entityBuilder.HasOne(t => t.Category);
+            entityBuilder.HasOne(t => t.Category).WithMany(t=> t.Callouts).HasForeignKey(f => f.CategoryID);
         }
     }
 }

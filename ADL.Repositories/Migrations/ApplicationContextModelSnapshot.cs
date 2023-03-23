@@ -79,7 +79,7 @@ namespace ADL.Repositories.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("Callout");
+                    b.ToTable("Callout", (string)null);
                 });
 
             modelBuilder.Entity("ADL.Data.Entities.Category", b =>
@@ -102,7 +102,7 @@ namespace ADL.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("ADL.Data.Entities.Schedule", b =>
@@ -133,7 +133,7 @@ namespace ADL.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Schedule");
+                    b.ToTable("Schedule", (string)null);
                 });
 
             modelBuilder.Entity("ADL.Data.Entities.Callout", b =>

@@ -5,8 +5,10 @@ using System.Text;
 using System.Text.Json;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Net.Mail;
+using System.Net;
 
-namespace ADL.Web.Utils
+namespace ADL.Web.AppUtils
 {
     public class Utils
     {
@@ -37,9 +39,6 @@ namespace ADL.Web.Utils
             xmlSerializer.Serialize(xmlWriter, callout);
             return $"{fileName}.xml";
         }
-        public class Utf8StringWriter : StringWriter
-        {
-            public override Encoding Encoding => Encoding.UTF8;
-        }
     }
+       
 }
